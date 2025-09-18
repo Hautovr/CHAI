@@ -1,7 +1,10 @@
 import { telegram } from '../lib/telegram';
 import { Settings } from 'lucide-react';
 
-export function Header({ onOpenSettings }: { onOpenSettings: () => void }) {
+export function Header({ onOpenSettings, isSettingsOpen }: { 
+  onOpenSettings: () => void;
+  isSettingsOpen?: boolean;
+}) {
   const user = telegram.getUser();
   const fallbackLogo = '/logo.svg';
   return (
@@ -11,8 +14,18 @@ export function Header({ onOpenSettings }: { onOpenSettings: () => void }) {
         <div className="text-xl font-extrabold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent tracking-widest drop-shadow-sm opacity-80">ЧАЙ СЧИТАЙ</div>
       </div>
       <div className="flex-1" />
-      <button className="p-2 rounded-full bg-mint hover:opacity-90" onClick={onOpenSettings} aria-label="Настройки">
-        <Settings className="w-5 h-5" />
+      <button 
+        className={`p-2 rounded-full transition-all duration-200 ${
+          isSettingsOpen 
+            ? 'bg-mint-soft border-2 border-mint' 
+            : 'bg-mint hover:opacity-90'
+        }`} 
+        onClick={onOpenSettings} 
+        aria-label={isSettingsOpen ? "Закрыть настройки" : "Открыть настройки"}
+      >
+        <Settings className={`w-5 h-5 transition-transform duration-200 ${
+          isSettingsOpen ? 'rotate-45 text-mint' : 'text-white'
+        }`} />
       </button>
     </header>
   );
