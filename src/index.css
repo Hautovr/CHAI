@@ -10,29 +10,66 @@
   --tg-theme-link-color: #0ea5e9;
   --tg-theme-button-color: #16a34a;
   --tg-theme-button-text-color: #ffffff;
-  --tg-theme-secondary-bg-color: #f1f5f9;
+  --tg-theme-secondary-bg-color: #f8fafc;
 
-  /* Brand tokens with Telegram fallbacks */
+  /* Light theme brand colors */
   --tea: #b9e3c6;
   --latte: #f7e9d7;
   --mint: #c8f1df;
+  --mint-soft: rgba(200, 241, 223, 0.4);
   --peach: #ffd9c2;
   --ink: var(--tg-theme-text-color);
   --bg: var(--tg-theme-bg-color);
   --card: var(--tg-theme-secondary-bg-color);
   --soft-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-up: 0 -8px 24px rgba(15, 23, 42, 0.08);
 }
 
-/* Dark theme overrides */
-@media (prefers-color-scheme: dark) {
+/* Dark theme overrides - both system preference and Telegram dark theme */
+@media (prefers-color-scheme: dark), [data-theme="dark"] {
   :root {
-    --tg-theme-bg-color: #1f2937;
-    --tg-theme-text-color: #f9fafb;
-    --tg-theme-hint-color: #9ca3af;
-    --tg-theme-secondary-bg-color: #374151;
-    --card: #374151ee;
-    --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --tg-theme-bg-color: #0f172a;
+    --tg-theme-text-color: #f1f5f9;
+    --tg-theme-hint-color: #94a3b8;
+    --tg-theme-link-color: #38bdf8;
+    --tg-theme-button-color: #22c55e;
+    --tg-theme-button-text-color: #ffffff;
+    --tg-theme-secondary-bg-color: #1e293b;
+
+    /* Dark theme brand colors */
+    --tea: #065f46;
+    --latte: #451a03;
+    --mint: #064e3b;
+    --mint-soft: rgba(6, 78, 59, 0.4);
+    --peach: #92400e;
+    --ink: var(--tg-theme-text-color);
+    --bg: var(--tg-theme-bg-color);
+    --card: var(--tg-theme-secondary-bg-color);
+    --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-up: 0 -8px 24px rgba(0, 0, 0, 0.4);
   }
+}
+
+/* Force dark theme class for Telegram */
+.dark-theme {
+  --tg-theme-bg-color: #0f172a !important;
+  --tg-theme-text-color: #f1f5f9 !important;
+  --tg-theme-hint-color: #94a3b8 !important;
+  --tg-theme-link-color: #38bdf8 !important;
+  --tg-theme-button-color: #22c55e !important;
+  --tg-theme-button-text-color: #ffffff !important;
+  --tg-theme-secondary-bg-color: #1e293b !important;
+  
+  --tea: #065f46 !important;
+  --latte: #451a03 !important;
+  --mint: #064e3b !important;
+  --mint-soft: rgba(6, 78, 59, 0.4) !important;
+  --peach: #92400e !important;
+  --ink: var(--tg-theme-text-color) !important;
+  --bg: var(--tg-theme-bg-color) !important;
+  --card: var(--tg-theme-secondary-bg-color) !important;
+  --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  --shadow-up: 0 -8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Telegram theme class for runtime updates */

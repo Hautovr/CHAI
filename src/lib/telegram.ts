@@ -5,33 +5,66 @@ function applyTheme() {
   const root = document.documentElement;
   const body = document.body;
   
-  if (p) {
+  // Remove existing theme classes
+  body.classList.remove('dark-theme', 'light-theme');
+  
+  if (p && p.bg_color) {
+    // Determine if it's dark theme based on background color
+    const isDark = isDarkColor(p.bg_color);
+    
     // Apply Telegram theme colors
-    const set = (k: string, v?: string) => v && root.style.setProperty(`--tg-theme-${k}`, v);
-    set('bg-color', p.bg_color || '#ffffff');
-    set('text-color', p.text_color || '#000000');
-    set('hint-color', p.hint_color || '#6b7280');
-    set('link-color', p.link_color || '#0ea5e9');
-    set('button-color', p.button_color || '#16a34a');
-    set('button-text-color', p.button_text_color || '#ffffff');
-    set('secondary-bg-color', p.secondary_bg_color || '#f1f5f9');
+    const set = (k: string, v?: string) => {
+      if (v) root.style.setProperty(`--tg-theme-${k}`, v);
+    };
+    
+    set('bg-color', p.bg_color);
+    set('text-color', p.text_color);
+    set('hint-color', p.hint_color);
+    set('link-color', p.link_color);
+    set('button-color', p.button_color);
+    set('button-text-color', p.button_text_color);
+    set('secondary-bg-color', p.secondary_bg_color);
+    
+    // Apply theme class based on detected theme
+    body.classList.add(isDark ? 'dark-theme' : 'light-theme');
     
     // Apply to body directly for immediate effect
-    body.style.backgroundColor = p.bg_color || '#ffffff';
-    body.style.color = p.text_color || '#000000';
-  } else {
-    // Fallback for non-Telegram environment
-    root.style.setProperty('--tg-theme-bg-color', '#ffffff');
-    root.style.setProperty('--tg-theme-text-color', '#000000');
-    root.style.setProperty('--tg-theme-hint-color', '#6b7280');
-    root.style.setProperty('--tg-theme-link-color', '#0ea5e9');
-    root.style.setProperty('--tg-theme-button-color', '#16a34a');
-    root.style.setProperty('--tg-theme-button-text-color', '#ffffff');
-    root.style.setProperty('--tg-theme-secondary-bg-color', '#f1f5f9');
+    body.style.backgroundColor = p.bg_color;
+    body.style.color = p.text_color || (isDark ? '#f1f5f9' : '#000000');
     
-    body.style.backgroundColor = '#ffffff';
-    body.style.color = '#000000';
+    // Set data attribute for CSS targeting
+    root.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  } else {
+    // Fallback for non-Telegram environment - detect system theme
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (systemDark) {
+      body.classList.add('dark-theme');
+      root.setAttribute('data-theme', 'dark');
+      body.style.backgroundColor = '#0f172a';
+      body.style.color = '#f1f5f9';
+    } else {
+      body.classList.add('light-theme');
+      root.setAttribute('data-theme', 'light');
+      body.style.backgroundColor = '#ffffff';
+      body.style.color = '#000000';
+    }
   }
+}
+
+// Helper function to determine if a color is dark
+function isDarkColor(color: string): boolean {
+  // Convert hex to RGB
+  const hex = color.replace('#', '');
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  
+  // Calculate luminance
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  
+  // Return true if color is dark (luminance < 0.5)
+  return luminance < 0.5;
 }
 
 export const telegram = {
@@ -42,7 +75,17 @@ export const telegram = {
       WebApp.onEvent('themeChanged', applyTheme);
     } catch (e) {
       // Non-Telegram environment
+      console.log('Running outside Telegram, using system theme');
     }
+    
+    // Listen for system theme changes
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', applyTheme);
+    }
+    
+    // Apply theme immediately
+    applyTheme();
   },
   hapticLight() {
     try { WebApp.HapticFeedback.impactOccurred('light'); } catch {}
