@@ -7,6 +7,9 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
 }) {
   const user = telegram.getUser();
   const fallbackLogo = '/logo.svg';
+  
+  console.log('Header render - isSettingsOpen:', isSettingsOpen);
+  
   return (
     <header className="px-4 py-3 flex items-center gap-3">
       <img src="/logo2.svg" alt="logo" className="w-12 h-12 rounded" />
@@ -20,7 +23,10 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
             ? 'bg-mint-soft border-2 border-mint' 
             : 'bg-mint hover:opacity-90'
         }`} 
-        onClick={onOpenSettings} 
+        onClick={() => {
+          console.log('Settings button clicked in Header');
+          onOpenSettings();
+        }} 
         aria-label={isSettingsOpen ? "Закрыть настройки" : "Открыть настройки"}
       >
         <Settings className={`w-5 h-5 transition-transform duration-200 ${
