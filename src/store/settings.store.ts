@@ -4,7 +4,7 @@ import { Settings, SettingsSchema } from '../db/models';
 
 type SettingsState = Settings & {
   loaded: boolean;
-  load: () => Promise<void>;
+  load: () => Promise<Settings>;
   save: (patch: Partial<Settings>) => Promise<void>;
 };
 

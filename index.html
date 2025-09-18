@@ -16,7 +16,7 @@
         font-family: system-ui, -apple-system, sans-serif;
       }
       
-      /* Dark theme detection */
+      /* Time-based theme detection */
       @media (prefers-color-scheme: dark) {
         html, body {
           background-color: #0f172a;
@@ -111,6 +111,28 @@
     <script type="module" src="/src/main.tsx"></script>
     
     <script>
+      // Apply time-based theme immediately
+      (function() {
+        const currentHour = new Date().getHours();
+        const isNightTime = currentHour >= 22 || currentHour < 8;
+        
+        console.log('Loading screen - Current hour:', currentHour, 'Night time:', isNightTime);
+        
+        if (isNightTime) {
+          // Night time - apply dark theme
+          document.documentElement.style.backgroundColor = '#0f172a';
+          document.documentElement.style.color = '#f1f5f9';
+          document.body.style.backgroundColor = '#0f172a';
+          document.body.style.color = '#f1f5f9';
+        } else {
+          // Day time - apply light theme
+          document.documentElement.style.backgroundColor = '#ffffff';
+          document.documentElement.style.color = '#000000';
+          document.body.style.backgroundColor = '#ffffff';
+          document.body.style.color = '#000000';
+        }
+      })();
+      
       // Hide loading screen when app is ready
       window.addEventListener('load', function() {
         setTimeout(() => {

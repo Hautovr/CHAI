@@ -126,43 +126,40 @@ export const telegram = {
       body.style.color = '#000000';
       
     } else {
-      // Auto theme - use Telegram theme or system preference
-      console.log('Applying auto theme');
+      // Auto theme - use time-based theme (8:00-22:00 light, 22:00-8:00 dark)
+      console.log('Applying auto theme based on time');
       body.classList.add('auto-theme');
       
-      const p = WebApp.themeParams;
-      if (p && p.bg_color) {
-        // Use Telegram theme
-        console.log('Using Telegram theme colors');
-        applyTheme();
-      } else {
-        // Use system theme
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        console.log('Using system theme, dark:', systemDark);
+      // Get current hour (0-23)
+      const currentHour = new Date().getHours();
+      const isNightTime = currentHour >= 22 || currentHour < 8;
+      
+      console.log('Current hour:', currentHour, 'Night time:', isNightTime);
+      
+      if (isNightTime) {
+        // Night time (22:00 - 8:00) - Dark theme
+        body.classList.add('dark-theme');
+        root.setAttribute('data-theme', 'dark');
         
-        if (systemDark) {
-          body.classList.add('dark-theme');
-          root.setAttribute('data-theme', 'dark');
-          
-          root.style.setProperty('--tg-theme-bg-color', '#0f172a');
-          root.style.setProperty('--tg-theme-text-color', '#f1f5f9');
-          root.style.setProperty('--tg-theme-hint-color', '#94a3b8');
-          root.style.setProperty('--tg-theme-secondary-bg-color', '#1e293b');
-          
-          body.style.backgroundColor = '#0f172a';
-          body.style.color = '#f1f5f9';
-        } else {
-          body.classList.add('light-theme');
-          root.setAttribute('data-theme', 'light');
-          
-          root.style.setProperty('--tg-theme-bg-color', '#ffffff');
-          root.style.setProperty('--tg-theme-text-color', '#000000');
-          root.style.setProperty('--tg-theme-hint-color', '#6b7280');
-          root.style.setProperty('--tg-theme-secondary-bg-color', '#f8fafc');
-          
-          body.style.backgroundColor = '#ffffff';
-          body.style.color = '#000000';
-        }
+        root.style.setProperty('--tg-theme-bg-color', '#0f172a');
+        root.style.setProperty('--tg-theme-text-color', '#f1f5f9');
+        root.style.setProperty('--tg-theme-hint-color', '#94a3b8');
+        root.style.setProperty('--tg-theme-secondary-bg-color', '#1e293b');
+        
+        body.style.backgroundColor = '#0f172a';
+        body.style.color = '#f1f5f9';
+      } else {
+        // Day time (8:00 - 22:00) - Light theme
+        body.classList.add('light-theme');
+        root.setAttribute('data-theme', 'light');
+        
+        root.style.setProperty('--tg-theme-bg-color', '#ffffff');
+        root.style.setProperty('--tg-theme-text-color', '#000000');
+        root.style.setProperty('--tg-theme-hint-color', '#6b7280');
+        root.style.setProperty('--tg-theme-secondary-bg-color', '#f8fafc');
+        
+        body.style.backgroundColor = '#ffffff';
+        body.style.color = '#000000';
       }
     }
   },

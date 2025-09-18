@@ -142,10 +142,18 @@ input:focus, select:focus, textarea:focus {
   min-height: 200px;
 }
 
-/* Initial theme - light by default to prevent black screen */
+/* Initial theme - time-based to prevent black screen */
 html {
   background-color: #ffffff;
   color: #000000;
+}
+
+/* Auto-detect night time and apply dark theme immediately */
+@media (prefers-color-scheme: no-preference) {
+  html {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
 
 html, body, #root {

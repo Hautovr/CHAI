@@ -6,3 +6,4 @@ name = "chaischitai"
 
 [[env.production.routes]]
 pattern = "*"
+
