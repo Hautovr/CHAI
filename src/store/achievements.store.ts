@@ -170,7 +170,7 @@ export const useAchievements = create<AchievementsState>((set, get) => ({
           });
           
           let consecutiveDays = 0;
-          const sortedDays = Array.from(daysWithTips).sort().reverse();
+          const sortedDays = Array.from(daysWithTips).sort().reverse() as string[];
           for (let i = 0; i < sortedDays.length; i++) {
             if (i === 0 || 
                 Math.floor((new Date(sortedDays[i-1]).getTime() - new Date(sortedDays[i]).getTime()) / (1000 * 60 * 60 * 24)) === 1) {
