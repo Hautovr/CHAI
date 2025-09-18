@@ -487,10 +487,10 @@ export function Stats() {
                               <div className="bg-card rounded-xl p-3 shadow-soft border border-mint-soft">
                                 <p className="text-sm font-medium text-ink">{label}:00</p>
                                 <p className="text-mint font-semibold">
-                                  {payload[0].value.toLocaleString()} ₽
+                                  {payload[0]?.value?.toLocaleString() || 0} ₽
                                 </p>
                                 <p className="text-xs text-muted">
-                                  {payload[0].payload.count} записей
+                                  {payload[0]?.payload?.count || 0} записей
                                 </p>
                               </div>
                             );

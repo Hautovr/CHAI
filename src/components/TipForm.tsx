@@ -5,12 +5,14 @@ import { QuickAmounts } from './QuickAmounts';
 import { TablesStats } from './TablesStats';
 import { useTips } from '../store/tips.store';
 import { useSettings } from '../store/settings.store';
+import { useAchievements } from '../store/achievements.store';
 import { telegram } from '../lib/telegram';
 
 
 export function TipForm() {
-  const { add, lastMethod } = useTips();
-  const { currency } = useSettings();
+  const { add, lastMethod, tips } = useTips();
+  const { currency, dailyTarget } = useSettings();
+  const { checkAchievements } = useAchievements();
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
 
@@ -20,6 +22,11 @@ export function TipForm() {
     await add(val, lastMethod, note || undefined);
     setAmount('');
     telegram.hapticLight();
+    
+    // Проверяем достижения после добавления чаевых
+    setTimeout(() => {
+      checkAchievements(tips, dailyTarget);
+    }, 100);
   }
 
   return (

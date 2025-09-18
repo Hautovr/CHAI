@@ -4,6 +4,7 @@ import { useTips } from '../store/tips.store';
 import { rangeForToday, inRange } from '../utils/date';
 import { useShifts } from '../store/shifts.store';
 import { useSettings } from '../store/settings.store';
+import { useAchievements } from '../store/achievements.store';
 import AppHeader from '../components/AppHeader';
 import { telegram } from '../lib/telegram';
 import { motion } from 'framer-motion';
@@ -13,10 +14,22 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
   const { tips, load } = useTips();
   const { currentShiftId, startShift, stopShift, load: loadShifts, ensureTodayShift } = useShifts();
   const { dailyTarget, save } = useSettings();
+  const { load: loadAchievements, checkAchievements } = useAchievements();
   const [isEditingTarget, setIsEditingTarget] = useState(false);
   const [targetInput, setTargetInput] = useState('');
 
-  useEffect(() => { load(); loadShifts().then(()=>ensureTodayShift()); }, []);
+  useEffect(() => { 
+    load(); 
+    loadShifts().then(()=>ensureTodayShift());
+    loadAchievements();
+  }, []);
+
+  // Проверяем достижения при изменении чаевых
+  useEffect(() => {
+    if (tips.length > 0 && dailyTarget) {
+      checkAchievements(tips, dailyTarget);
+    }
+  }, [tips, dailyTarget]);
 
   const today = useMemo(() => {
     const r = rangeForToday();

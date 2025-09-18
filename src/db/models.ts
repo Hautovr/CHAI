@@ -38,4 +38,30 @@ export const SettingsSchema = z.object({
 });
 export type Settings = z.infer<typeof SettingsSchema>;
 
+export const AchievementSchema = z.object({
+  id: z.string(),
+  userId: z.string().optional(),
+  type: z.enum(['daily_target', 'total_amount', 'streak', 'big_tip', 'consistency']),
+  title: z.string(),
+  description: z.string(),
+  icon: z.string(),
+  unlockedAt: z.number(),
+  progress: z.number().default(0),
+  maxProgress: z.number().default(1),
+  rarity: z.enum(['common', 'rare', 'epic', 'legendary']).default('common'),
+});
+export type Achievement = z.infer<typeof AchievementSchema>;
+
+export const StreakSchema = z.object({
+  id: z.string(),
+  userId: z.string().optional(),
+  type: z.enum(['daily_target']),
+  currentStreak: z.number().default(0),
+  longestStreak: z.number().default(0),
+  lastAchievedDate: z.string().optional(), // YYYY-MM-DD format
+  createdAt: z.number(),
+  updatedAt: z.number(),
+});
+export type Streak = z.infer<typeof StreakSchema>;
+
 
