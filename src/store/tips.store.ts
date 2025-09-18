@@ -10,7 +10,7 @@ type TipsState = {
   tips: Tip[];
   lastMethod: TipMethod;
   load: () => Promise<void>;
-  add: (amount: number, method: TipMethod, note?: string) => Promise<void>;
+  add: (amount: number, method: TipMethod, note?: string, tables?: number) => Promise<void>;
   remove: (id: string) => Promise<void>;
   update: (id: string, patch: Partial<Tip>) => Promise<void>;
 };
@@ -22,7 +22,7 @@ export const useTips = create<TipsState>((set, get) => ({
     const tips = await db.tips.orderBy('createdAt').reverse().toArray();
     set({ tips, lastMethod: tips[0]?.method ?? 'cash' });
   },
-  async add(amount, method, note) {
+  async add(amount, method, note, tables) {
     const { rounding, currency } = useSettings.getState();
     const { currentShiftId } = useShifts.getState();
     const rounded = applyRounding(amount, rounding);
@@ -32,6 +32,7 @@ export const useTips = create<TipsState>((set, get) => ({
       currency,
       method,
       note,
+      tables,
       createdAt: Date.now(),
       shiftId: currentShiftId ?? undefined,
       userId: undefined,

@@ -10,6 +10,7 @@ export const TipSchema = z.object({
   currency: z.string().min(1),
   method: TipMethod,
   note: z.string().optional(),
+  tables: z.number().positive().optional(),
   createdAt: z.number(),
   shiftId: z.string().optional(),
 });
