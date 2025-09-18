@@ -20,18 +20,26 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
       <button 
         className={`p-2 rounded-full transition-all duration-200 ${
           isSettingsOpen 
-            ? 'bg-mint-soft border-2 border-mint' 
-            : 'bg-mint hover:opacity-90'
+            ? 'bg-mint-soft border-2 border-mint shadow-inner' 
+            : 'bg-mint hover:opacity-90 shadow-soft'
         }`} 
         onClick={() => {
-          console.log('Settings button clicked in Header');
+          console.log('Settings button clicked in Header. isSettingsOpen:', isSettingsOpen);
           onOpenSettings();
         }} 
         aria-label={isSettingsOpen ? "Закрыть настройки" : "Открыть настройки"}
+        style={{ 
+          backgroundColor: isSettingsOpen ? 'var(--mint-soft)' : 'var(--mint)',
+          borderColor: isSettingsOpen ? 'var(--mint)' : 'transparent'
+        }}
       >
-        <Settings className={`w-5 h-5 transition-transform duration-200 ${
-          isSettingsOpen ? 'rotate-45 text-mint' : 'text-white'
-        }`} />
+        <Settings 
+          className={`w-5 h-5 transition-transform duration-200`}
+          style={{
+            transform: isSettingsOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+            color: isSettingsOpen ? 'var(--mint)' : 'white'
+          }}
+        />
       </button>
     </header>
   );
