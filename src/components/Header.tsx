@@ -6,9 +6,13 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
   isSettingsOpen?: boolean;
 }) {
   const user = telegram.getUser();
-  const fallbackLogo = '/logo.svg';
   
-  console.log('Header render - isSettingsOpen:', isSettingsOpen);
+  console.log('🔧 Header render - isSettingsOpen:', isSettingsOpen);
+  
+  const handleClick = () => {
+    console.log('🔧 Settings button clicked in Header');
+    onOpenSettings();
+  };
   
   return (
     <header className="px-4 py-3 flex items-center gap-3">
@@ -18,27 +22,18 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
       </div>
       <div className="flex-1" />
       <button 
+        onClick={handleClick}
         className={`p-2 rounded-full transition-all duration-200 ${
           isSettingsOpen 
-            ? 'bg-mint-soft border-2 border-mint shadow-inner' 
-            : 'bg-mint hover:opacity-90 shadow-soft'
-        }`} 
-        onClick={() => {
-          console.log('Settings button clicked in Header. isSettingsOpen:', isSettingsOpen);
-          onOpenSettings();
-        }} 
+            ? 'bg-mint-soft border-2 border-mint' 
+            : 'bg-mint hover:opacity-90'
+        }`}
         aria-label={isSettingsOpen ? "Закрыть настройки" : "Открыть настройки"}
-        style={{ 
-          backgroundColor: isSettingsOpen ? 'var(--mint-soft)' : 'var(--mint)',
-          borderColor: isSettingsOpen ? 'var(--mint)' : 'transparent'
-        }}
       >
         <Settings 
-          className={`w-5 h-5 transition-transform duration-200`}
-          style={{
-            transform: isSettingsOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-            color: isSettingsOpen ? 'var(--mint)' : 'white'
-          }}
+          className={`w-5 h-5 ${
+            isSettingsOpen ? 'rotate-45 text-mint' : 'text-white'
+          } transition-transform duration-200`}
         />
       </button>
     </header>
