@@ -1,0 +1,8 @@
+name = "chaischitai"
+compatibility_date = "2024-09-18"
+
+[env.production]
+name = "chaischitai"
+
+[[env.production.routes]]
+pattern = "*"

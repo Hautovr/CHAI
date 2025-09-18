@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --tg-theme-bg-color: #fffefb;
-  --tg-theme-text-color: #0f172a;
+  /* Light theme defaults */
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
   --tg-theme-hint-color: #6b7280;
   --tg-theme-link-color: #0ea5e9;
   --tg-theme-button-color: #16a34a;
   --tg-theme-button-text-color: #ffffff;
+  --tg-theme-secondary-bg-color: #f1f5f9;
 
   /* Brand tokens with Telegram fallbacks */
   --tea: #b9e3c6;
@@ -17,9 +19,28 @@
   --peach: #ffd9c2;
   --ink: var(--tg-theme-text-color);
   --bg: var(--tg-theme-bg-color);
-  --card: #ffffffee;
+  --card: var(--tg-theme-secondary-bg-color);
   --soft-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
+
+/* Dark theme overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-theme-bg-color: #1f2937;
+    --tg-theme-text-color: #f9fafb;
+    --tg-theme-hint-color: #9ca3af;
+    --tg-theme-secondary-bg-color: #374151;
+    --card: #374151ee;
+    --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Telegram theme class for runtime updates */
+.tg-theme {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+}
+
 /* Friendly design utilities */
 .shadow-soft { box-shadow: var(--soft-shadow); }
 .bg-card { background: var(--card); }
@@ -33,12 +54,22 @@
 .bg-primary { background: var(--tg-theme-button-color); }
 .text-primaryText { color: var(--tg-theme-button-text-color); }
 .shadow-up { box-shadow: 0 -8px 24px rgba(15,23,42,0.08); }
-/* Soft mint background for inactive pills */
 .bg-mint-soft { background: rgba(200, 241, 223, 0.55); }
-
 
 html, body, #root {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
 }
 
 /* Safe area for mobile */
@@ -47,43 +78,7 @@ html, body, #root {
   padding-top: env(safe-area-inset-top);
 }
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
+/* Button styles */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -91,27 +86,16 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.25s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Links */
+a {
+  color: var(--tg-theme-link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
 }

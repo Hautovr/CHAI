@@ -2,15 +2,36 @@ import WebApp from '@twa-dev/sdk';
 
 function applyTheme() {
   const p = WebApp.themeParams;
-  if (!p) return;
   const root = document.documentElement;
-  const set = (k: string, v?: string) => v && root.style.setProperty(`--tg-theme-${k}`, v);
-  set('bg-color', p.bg_color);
-  set('text-color', p.text_color);
-  set('hint-color', p.hint_color);
-  set('link-color', p.link_color);
-  set('button-color', p.button_color);
-  set('button-text-color', p.button_text_color);
+  const body = document.body;
+  
+  if (p) {
+    // Apply Telegram theme colors
+    const set = (k: string, v?: string) => v && root.style.setProperty(`--tg-theme-${k}`, v);
+    set('bg-color', p.bg_color || '#ffffff');
+    set('text-color', p.text_color || '#000000');
+    set('hint-color', p.hint_color || '#6b7280');
+    set('link-color', p.link_color || '#0ea5e9');
+    set('button-color', p.button_color || '#16a34a');
+    set('button-text-color', p.button_text_color || '#ffffff');
+    set('secondary-bg-color', p.secondary_bg_color || '#f1f5f9');
+    
+    // Apply to body directly for immediate effect
+    body.style.backgroundColor = p.bg_color || '#ffffff';
+    body.style.color = p.text_color || '#000000';
+  } else {
+    // Fallback for non-Telegram environment
+    root.style.setProperty('--tg-theme-bg-color', '#ffffff');
+    root.style.setProperty('--tg-theme-text-color', '#000000');
+    root.style.setProperty('--tg-theme-hint-color', '#6b7280');
+    root.style.setProperty('--tg-theme-link-color', '#0ea5e9');
+    root.style.setProperty('--tg-theme-button-color', '#16a34a');
+    root.style.setProperty('--tg-theme-button-text-color', '#ffffff');
+    root.style.setProperty('--tg-theme-secondary-bg-color', '#f1f5f9');
+    
+    body.style.backgroundColor = '#ffffff';
+    body.style.color = '#000000';
+  }
 }
 
 export const telegram = {
