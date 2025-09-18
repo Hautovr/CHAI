@@ -16,11 +16,6 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
   
   return (
     <header className="px-4 py-3 flex items-center gap-3">
-      <img 
-        src={user?.photo_url || "/logo.svg"} 
-        alt="avatar" 
-        className="w-12 h-12 rounded-full border-2 border-white/20 shadow-lg" 
-      />
       <div className="px-4 py-2 rounded-full border-2 border-green-400 bg-green-50/30">
         <div className="text-xl font-extrabold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent tracking-widest drop-shadow-sm opacity-80">ЧАЙ СЧИТАЙ</div>
       </div>
