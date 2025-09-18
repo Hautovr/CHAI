@@ -9,20 +9,27 @@ export function Header({ onOpenSettings, isSettingsOpen }: {
   
   console.log('🔧 Header render - isSettingsOpen:', isSettingsOpen);
   
-  const handleClick = () => {
+  const handleSettingsClick = () => {
     console.log('🔧 Settings button clicked in Header');
     onOpenSettings();
   };
   
   return (
     <header className="px-4 py-3 flex items-center gap-3">
-      <img src="/logo2.svg" alt="logo" className="w-12 h-12 rounded" />
+      <img 
+        src={user?.photo_url || "/logo.svg"} 
+        alt="avatar" 
+        className="w-12 h-12 rounded-full border-2 border-white/20 shadow-lg" 
+      />
       <div className="px-4 py-2 rounded-full border-2 border-green-400 bg-green-50/30">
         <div className="text-xl font-extrabold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent tracking-widest drop-shadow-sm opacity-80">ЧАЙ СЧИТАЙ</div>
       </div>
       <div className="flex-1" />
+      
+      
+      {/* Кнопка настроек */}
       <button 
-        onClick={handleClick}
+        onClick={handleSettingsClick}
         className={`p-2 rounded-full transition-all duration-200 ${
           isSettingsOpen 
             ? 'bg-mint-soft border-2 border-mint' 
