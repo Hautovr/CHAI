@@ -124,19 +124,23 @@ input:focus, select:focus, textarea:focus {
 }
 
 html, body, #root {
-  height: 100%;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   margin: 0;
   padding: 0;
   background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
   font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden; /* Prevent scrolling beyond viewport */
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
+  overflow: hidden; /* Prevent body scrolling */
 }
 
 /* Safe area for mobile */

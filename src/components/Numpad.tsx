@@ -39,7 +39,7 @@ export function Numpad({ value, onChange, onSubmit, allowDot = true }: Props) {
     onChange(value + s);
   }
   return (
-    <div className="grid grid-cols-3 gap-3 p-4">
+    <div className="grid grid-cols-3 gap-3 p-4 w-full">
       {keys.flat().map(k => (
         <Key key={k} label={k} onPress={handlePress} />
       ))}

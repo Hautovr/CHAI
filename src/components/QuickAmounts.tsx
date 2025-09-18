@@ -11,8 +11,8 @@ export function QuickAmounts({ onAdd }: { onAdd: (v: number) => void }) {
   };
   
   return (
-    <div className="px-4 py-3">
-      <div className="text-sm font-medium text-ink mb-3 text-center">Быстрые суммы</div>
+    <div className="px-4 py-2">
+      <div className="text-sm font-medium text-ink mb-2 text-center">Быстрые суммы</div>
       <div className="flex flex-wrap justify-center gap-2 max-w-sm mx-auto">
         {quickAmounts.map((value, index) => (
           <motion.button
