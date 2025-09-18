@@ -24,11 +24,17 @@ export const useSettings = create<SettingsState>((set, get) => ({
   loaded: false,
   async load() {
     const existing = await db.settings.get('settings');
-    if (existing) set({ ...defaultSettings, ...existing, loaded: true });
-    else {
+    const settings = existing ? { ...defaultSettings, ...existing } : defaultSettings;
+    
+    if (!existing) {
       await db.settings.put(defaultSettings);
-      set({ ...defaultSettings, loaded: true });
     }
+    
+    set({ ...settings, loaded: true });
+    
+    // Apply theme immediately after loading
+    console.log('Settings loaded, theme:', settings.theme);
+    return settings;
   },
   async save(patch) {
     const merged = SettingsSchema.parse({ ...get(), ...patch });

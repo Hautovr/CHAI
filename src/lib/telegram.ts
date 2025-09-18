@@ -69,27 +69,26 @@ function isDarkColor(color: string): boolean {
 
 export const telegram = {
   init() {
+    console.log('Initializing Telegram WebApp');
     try {
       WebApp.ready();
       applyTheme();
-      WebApp.onEvent('themeChanged', applyTheme);
+      WebApp.onEvent('themeChanged', () => {
+        console.log('Telegram theme changed, reapplying');
+        applyTheme();
+      });
     } catch (e) {
       // Non-Telegram environment
       console.log('Running outside Telegram, using system theme');
     }
     
-    // Listen for system theme changes
-    if (window.matchMedia) {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      mediaQuery.addEventListener('change', applyTheme);
-    }
-    
-    // Apply theme immediately
+    // Apply initial theme immediately
     applyTheme();
   },
   
   // Manual theme application
   setTheme(theme: 'auto' | 'light' | 'dark') {
+    console.log('Setting theme to:', theme);
     const root = document.documentElement;
     const body = document.body;
     
@@ -98,6 +97,7 @@ export const telegram = {
     
     if (theme === 'dark') {
       // Force dark theme
+      console.log('Applying forced dark theme');
       body.classList.add('dark-theme');
       root.setAttribute('data-theme', 'dark');
       
@@ -112,6 +112,7 @@ export const telegram = {
       
     } else if (theme === 'light') {
       // Force light theme
+      console.log('Applying forced light theme');
       body.classList.add('light-theme');
       root.setAttribute('data-theme', 'light');
       
@@ -126,8 +127,43 @@ export const telegram = {
       
     } else {
       // Auto theme - use Telegram theme or system preference
+      console.log('Applying auto theme');
       body.classList.add('auto-theme');
-      applyTheme();
+      
+      const p = WebApp.themeParams;
+      if (p && p.bg_color) {
+        // Use Telegram theme
+        console.log('Using Telegram theme colors');
+        applyTheme();
+      } else {
+        // Use system theme
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('Using system theme, dark:', systemDark);
+        
+        if (systemDark) {
+          body.classList.add('dark-theme');
+          root.setAttribute('data-theme', 'dark');
+          
+          root.style.setProperty('--tg-theme-bg-color', '#0f172a');
+          root.style.setProperty('--tg-theme-text-color', '#f1f5f9');
+          root.style.setProperty('--tg-theme-hint-color', '#94a3b8');
+          root.style.setProperty('--tg-theme-secondary-bg-color', '#1e293b');
+          
+          body.style.backgroundColor = '#0f172a';
+          body.style.color = '#f1f5f9';
+        } else {
+          body.classList.add('light-theme');
+          root.setAttribute('data-theme', 'light');
+          
+          root.style.setProperty('--tg-theme-bg-color', '#ffffff');
+          root.style.setProperty('--tg-theme-text-color', '#000000');
+          root.style.setProperty('--tg-theme-hint-color', '#6b7280');
+          root.style.setProperty('--tg-theme-secondary-bg-color', '#f8fafc');
+          
+          body.style.backgroundColor = '#ffffff';
+          body.style.color = '#000000';
+        }
+      }
     }
   },
   hapticLight() {

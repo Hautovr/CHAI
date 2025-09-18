@@ -12,7 +12,6 @@ export function ThemeToggle() {
     { value: 'dark', label: 'Темная', icon: Moon },
   ] as const;
 
-  console.log('Current theme:', theme); // Для отладки
 
   const handleThemeChange = async (newTheme: 'auto' | 'light' | 'dark') => {
     await save({ theme: newTheme });
