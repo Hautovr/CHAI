@@ -123,6 +123,25 @@ input:focus, select:focus, textarea:focus {
   border-color: rgba(148, 163, 184, 0.2);
 }
 
+/* Recharts theme integration */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--mint-soft) !important;
+}
+
+.recharts-text {
+  fill: var(--ink) !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--ink) !important;
+}
+
+/* Chart responsive container */
+.recharts-responsive-container {
+  min-height: 200px;
+}
+
 html, body, #root {
   height: 100vh;
   height: 100dvh; /* Dynamic viewport height for mobile */
