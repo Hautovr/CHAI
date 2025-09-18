@@ -16,6 +16,7 @@ const defaultSettings: Settings = {
   lang: 'ru',
   showAvatar: true,
   dailyTarget: 3000,
+  theme: 'auto',
 };
 
 export const useSettings = create<SettingsState>((set, get) => ({

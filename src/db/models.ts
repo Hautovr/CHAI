@@ -33,6 +33,7 @@ export const SettingsSchema = z.object({
   lang: z.enum(['ru','en']).default('ru'),
   showAvatar: z.boolean().default(true),
   dailyTarget: z.number().default(3000),
+  theme: z.enum(['auto', 'light', 'dark']).default('auto'),
 });
 export type Settings = z.infer<typeof SettingsSchema>;
 

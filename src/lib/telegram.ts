@@ -87,6 +87,27 @@ export const telegram = {
     // Apply theme immediately
     applyTheme();
   },
+  
+  // Manual theme application
+  setTheme(theme: 'auto' | 'light' | 'dark') {
+    const root = document.documentElement;
+    const body = document.body;
+    
+    // Remove existing theme classes
+    body.classList.remove('dark-theme', 'light-theme', 'auto-theme');
+    
+    if (theme === 'dark') {
+      body.classList.add('dark-theme');
+      root.setAttribute('data-theme', 'dark');
+    } else if (theme === 'light') {
+      body.classList.add('light-theme');
+      root.setAttribute('data-theme', 'light');
+    } else {
+      // Auto theme - use Telegram theme or system preference
+      body.classList.add('auto-theme');
+      applyTheme();
+    }
+  },
   hapticLight() {
     try { WebApp.HapticFeedback.impactOccurred('light'); } catch {}
   },

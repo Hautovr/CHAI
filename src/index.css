@@ -90,8 +90,32 @@
 .to-latte { --tw-gradient-to: var(--latte); }
 .bg-primary { background: var(--tg-theme-button-color); }
 .text-primaryText { color: var(--tg-theme-button-text-color); }
-.shadow-up { box-shadow: 0 -8px 24px rgba(15,23,42,0.08); }
-.bg-mint-soft { background: rgba(200, 241, 223, 0.55); }
+.shadow-up { box-shadow: var(--shadow-up); }
+.bg-mint-soft { background: var(--mint-soft); }
+
+/* Theme-aware focus styles */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--tg-theme-button-color) !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+/* Dark theme specific overrides */
+.dark-theme input, .dark-theme select, .dark-theme textarea {
+  background-color: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-text-color);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.dark-theme input::placeholder {
+  color: var(--tg-theme-hint-color);
+}
+
+/* Light theme specific overrides */
+.light-theme input, .light-theme select, .light-theme textarea {
+  background-color: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-text-color);
+  border-color: rgba(148, 163, 184, 0.2);
+}
 
 html, body, #root {
   height: 100%;
