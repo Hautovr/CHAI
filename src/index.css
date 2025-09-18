@@ -142,13 +142,19 @@ input:focus, select:focus, textarea:focus {
   min-height: 200px;
 }
 
+/* Initial theme - light by default to prevent black screen */
+html {
+  background-color: #ffffff;
+  color: #000000;
+}
+
 html, body, #root {
   height: 100vh;
   height: 100dvh; /* Dynamic viewport height for mobile */
   margin: 0;
   padding: 0;
-  background-color: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
   font-family: system-ui, -apple-system, sans-serif;
   overflow: hidden; /* Prevent scrolling beyond viewport */
 }
@@ -157,9 +163,28 @@ body {
   margin: 0;
   height: 100vh;
   height: 100dvh;
-  background-color: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
   overflow: hidden; /* Prevent body scrolling */
+}
+
+/* Default to light theme on initial load */
+:root {
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
+}
+
+/* Detect system dark theme and apply immediately */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-theme-bg-color: #0f172a;
+    --tg-theme-text-color: #f1f5f9;
+  }
+  
+  html {
+    background-color: #0f172a;
+    color: #f1f5f9;
+  }
 }
 
 /* Safe area for mobile */
