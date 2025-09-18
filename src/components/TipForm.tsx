@@ -29,16 +29,32 @@ export function TipForm() {
   }
 
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="text-center">
-        <div className="text-sm text-muted mb-1">Сумма</div>
-        <div className="text-4xl font-semibold text-ink tracking-wide">
-          {(amount || '0')}{' '}{currency}
+    <div className="flex flex-col">
+      {/* Amount Display */}
+      <div className="text-center py-6 px-4 bg-gradient-to-b from-card to-transparent">
+        <div className="text-sm text-muted mb-2">Введите сумму чаевых</div>
+        <div className="text-5xl font-bold text-ink tracking-tight mb-1">
+          {(amount || '0')}
+        </div>
+        <div className="text-lg text-muted font-medium">
+          {currency}
         </div>
       </div>
-      {/* Methods replaced by goal progress bar on Home */}
-      <input value={note} onChange={(e)=>setNote(e.target.value)} placeholder="Заметка" className="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800" />
+      
+      {/* Quick Amounts */}
       <QuickAmounts onAdd={(v)=> setAmount(a => (parseFloat(a||'0') + v).toString())} />
+      
+      {/* Note Input */}
+      <div className="px-4 pb-2">
+        <input 
+          value={note} 
+          onChange={(e)=>setNote(e.target.value)} 
+          placeholder="Заметка (необязательно)" 
+          className="w-full px-4 py-3 rounded-2xl bg-card border-2 border-transparent focus:border-mint outline-none text-ink placeholder:text-muted"
+        />
+      </div>
+      
+      {/* Numpad */}
       <Numpad value={amount} onChange={setAmount} onSubmit={submit} />
     </div>
   );
