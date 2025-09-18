@@ -50,26 +50,32 @@
   }
 }
 
-/* Force dark theme class for Telegram */
+/* Force dark theme class */
 .dark-theme {
-  --tg-theme-bg-color: #0f172a !important;
-  --tg-theme-text-color: #f1f5f9 !important;
-  --tg-theme-hint-color: #94a3b8 !important;
-  --tg-theme-link-color: #38bdf8 !important;
-  --tg-theme-button-color: #22c55e !important;
-  --tg-theme-button-text-color: #ffffff !important;
-  --tg-theme-secondary-bg-color: #1e293b !important;
-  
   --tea: #065f46 !important;
   --latte: #451a03 !important;
-  --mint: #064e3b !important;
-  --mint-soft: rgba(6, 78, 59, 0.4) !important;
+  --mint: #22c55e !important;
+  --mint-soft: rgba(34, 197, 94, 0.2) !important;
   --peach: #92400e !important;
-  --ink: var(--tg-theme-text-color) !important;
-  --bg: var(--tg-theme-bg-color) !important;
-  --card: var(--tg-theme-secondary-bg-color) !important;
+  --ink: #f1f5f9 !important;
+  --bg: #0f172a !important;
+  --card: #1e293b !important;
   --soft-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
   --shadow-up: 0 -8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Force light theme class */
+.light-theme {
+  --tea: #b9e3c6 !important;
+  --latte: #f7e9d7 !important;
+  --mint: #22c55e !important;
+  --mint-soft: rgba(34, 197, 94, 0.1) !important;
+  --peach: #ffd9c2 !important;
+  --ink: #000000 !important;
+  --bg: #ffffff !important;
+  --card: #f8fafc !important;
+  --soft-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  --shadow-up: 0 -8px 24px rgba(15, 23, 42, 0.08) !important;
 }
 
 /* Telegram theme class for runtime updates */

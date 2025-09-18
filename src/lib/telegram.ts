@@ -97,11 +97,33 @@ export const telegram = {
     body.classList.remove('dark-theme', 'light-theme', 'auto-theme');
     
     if (theme === 'dark') {
+      // Force dark theme
       body.classList.add('dark-theme');
       root.setAttribute('data-theme', 'dark');
+      
+      // Apply dark colors directly
+      root.style.setProperty('--tg-theme-bg-color', '#0f172a');
+      root.style.setProperty('--tg-theme-text-color', '#f1f5f9');
+      root.style.setProperty('--tg-theme-hint-color', '#94a3b8');
+      root.style.setProperty('--tg-theme-secondary-bg-color', '#1e293b');
+      
+      body.style.backgroundColor = '#0f172a';
+      body.style.color = '#f1f5f9';
+      
     } else if (theme === 'light') {
+      // Force light theme
       body.classList.add('light-theme');
       root.setAttribute('data-theme', 'light');
+      
+      // Apply light colors directly
+      root.style.setProperty('--tg-theme-bg-color', '#ffffff');
+      root.style.setProperty('--tg-theme-text-color', '#000000');
+      root.style.setProperty('--tg-theme-hint-color', '#6b7280');
+      root.style.setProperty('--tg-theme-secondary-bg-color', '#f8fafc');
+      
+      body.style.backgroundColor = '#ffffff';
+      body.style.color = '#000000';
+      
     } else {
       // Auto theme - use Telegram theme or system preference
       body.classList.add('auto-theme');
