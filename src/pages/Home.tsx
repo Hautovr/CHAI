@@ -124,6 +124,7 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
       </div>
       <TipForm />
       <div className="px-4 pb-4">
+        {/* Временно отключено
         <StarsPayment />
         <PremiumFeatures />
         <AdvancedAnalytics />
@@ -132,6 +133,7 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
         <CustomThemes />
         <CloudSync />
         <PrioritySupport />
+        */}
       </div>
 
       {/* Admin Panel */}

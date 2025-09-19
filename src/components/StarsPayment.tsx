@@ -85,6 +85,8 @@ export function StarsPayment() {
   };
 
 
+  // Временно отключено
+  /*
   if (subscription.tier === 'premium') {
     return (
       <motion.div
@@ -123,7 +125,12 @@ export function StarsPayment() {
       </motion.div>
     );
   }
+  */
 
+  // Временно отключено
+  return null;
+  
+  /*
   return (
     <motion.div
       className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-2xl p-6 shadow-lg border border-yellow-200 dark:border-yellow-700/50 mb-4"
@@ -145,7 +152,6 @@ export function StarsPayment() {
         </div>
       </div>
 
-      {/* Цена в звездах */}
       <div className="flex justify-center mb-6">
         <motion.div
           className="bg-white/60 dark:bg-gray-800/60 rounded-xl p-6 border border-yellow-200 dark:border-yellow-700/50 text-center max-w-sm w-full"
@@ -170,7 +176,6 @@ export function StarsPayment() {
         </motion.div>
       </div>
 
-      {/* Преимущества */}
       <div className="space-y-3">
         <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-3">
           🚀 Что включено:
@@ -199,7 +204,6 @@ export function StarsPayment() {
         </div>
       </div>
 
-      {/* Информация о звездах */}
       <div className="mt-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl border border-yellow-200 dark:border-yellow-700/50">
         <div className="text-sm text-yellow-800 dark:text-yellow-300">
           <strong>💡 О звездах:</strong> Звезды — это внутренняя валюта Telegram. 
@@ -208,4 +212,5 @@ export function StarsPayment() {
       </div>
     </motion.div>
   );
+  */
 }

@@ -118,8 +118,10 @@ export const useSubscription = create<SubscriptionState>()(
       },
 
       hasFeature: (feature: string) => {
-        const { subscription } = get();
-        return subscription.features.includes(feature);
+        // Временно отключены все премиум функции
+        return false;
+        // const { subscription } = get();
+        // return subscription.features.includes(feature);
       },
 
 
