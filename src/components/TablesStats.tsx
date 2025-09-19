@@ -26,11 +26,23 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
     const today = format(startOfDay(new Date()), 'yyyy-MM-dd');
     const yesterday = format(startOfDay(subDays(new Date(), 1)), 'yyyy-MM-dd');
     
+    console.log('📊 Загрузка статистики столов:', { today, yesterday });
+    
     const savedToday = localStorage.getItem(`tables_${today}`);
     const savedYesterday = localStorage.getItem(`tables_${yesterday}`);
     
-    if (savedToday) setTodayTables(parseInt(savedToday));
-    if (savedYesterday) setYesterdayTables(parseInt(savedYesterday));
+    console.log('💾 Данные из localStorage:', { savedToday, savedYesterday });
+    
+    if (savedToday) {
+      const todayCount = parseInt(savedToday);
+      setTodayTables(todayCount);
+      console.log('✅ Загружены столы за сегодня:', todayCount);
+    }
+    if (savedYesterday) {
+      const yesterdayCount = parseInt(savedYesterday);
+      setYesterdayTables(yesterdayCount);
+      console.log('✅ Загружены столы за вчера:', yesterdayCount);
+    }
     
     // Вычисляем среднее за неделю
     calculateWeeklyAverage();
@@ -306,6 +318,10 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
 
   const resetTodayTables = () => {
     const today = format(startOfDay(new Date()), 'yyyy-MM-dd');
+    
+    console.log('🗑️ Сброс статистики за сегодня:', today);
+    
+    // Сбрасываем состояние
     setTodayTables(0);
     setPendingTables(0);
     
@@ -317,7 +333,11 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
     calculateCorrelation();
     calculateTimeAnalysis();
     calculatePrediction();
+    
+    // Haptic feedback
     telegram.hapticLight();
+    
+    console.log('✅ Статистика за сегодня сброшена');
   };
 
   const removeTable = () => {
@@ -532,7 +552,10 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
 
         {/* Кнопка сброса статистики */}
         <motion.button
-          onClick={resetTodayTables}
+          onClick={() => {
+            console.log('🖱️ Клик по кнопке сброса статистики');
+            resetTodayTables();
+          }}
           className="w-full bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 text-red-600 hover:text-red-700 py-2.5 px-4 rounded-lg text-xs font-semibold transition-all duration-300 border border-red-200 hover:border-red-300 shadow-sm hover:shadow-md"
           whileHover={{ scale: 1.02, y: -1 }}
           whileTap={{ scale: 0.98 }}
