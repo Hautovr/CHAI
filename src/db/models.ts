@@ -35,6 +35,7 @@ export const SettingsSchema = z.object({
   showAvatar: z.boolean().default(true),
   dailyTarget: z.number().default(3000),
   theme: z.enum(['auto', 'light', 'dark']).default('auto'),
+  notificationsEnabled: z.boolean().default(true),
 });
 export type Settings = z.infer<typeof SettingsSchema>;
 

@@ -12,6 +12,7 @@ type AchievementsState = {
   getUnlockedAchievements: () => Achievement[];
   getStreak: (type: 'daily_target') => Streak | undefined;
   updateStreak: (type: 'daily_target', achieved: boolean) => Promise<void>;
+  resetAchievements: () => Promise<void>;
 };
 
 // Предопределенные достижения
@@ -197,5 +198,18 @@ export const useAchievements = create<AchievementsState>((set, get) => ({
         }));
       }
     }
+  },
+
+  resetAchievements: async () => {
+    const { db } = get();
+    
+    // Очищаем все достижения из базы данных
+    await db.achievements.clear();
+    await db.streaks.clear();
+    
+    // Сбрасываем состояние
+    set({ achievements: [], streaks: [] });
+    
+    console.log('🗑️ Все достижения сброшены');
   }
 }));

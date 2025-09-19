@@ -17,6 +17,7 @@ const defaultSettings: Settings = {
   showAvatar: true,
   dailyTarget: 3000,
   theme: 'auto',
+  notificationsEnabled: true,
 };
 
 export const useSettings = create<SettingsState>((set, get) => ({

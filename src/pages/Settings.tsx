@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useSettings } from '../store/settings.store';
+import { useAchievements } from '../store/achievements.store';
 import { useI18n } from '../lib/i18n';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { telegram } from '../lib/telegram';
 
 export function Settings() {
-  const { loaded, load, currency, rounding, quickAmounts, lang, showAvatar, dailyTarget, save } = useSettings();
+  const { loaded, load, currency, rounding, quickAmounts, lang, showAvatar, dailyTarget, notificationsEnabled, save } = useSettings();
+  const { resetAchievements } = useAchievements();
   const { setLang } = useI18n();
   const [quick, setQuick] = useState('');
 
   useEffect(()=>{ load(); }, []);
   useEffect(()=>{ setQuick(quickAmounts.join(',')); }, [quickAmounts]);
+
+  const handleResetAchievements = () => {
+    resetAchievements();
+    telegram.hapticLight();
+  };
 
   if (!loaded) return null;
 
@@ -57,16 +66,6 @@ export function Settings() {
         />
       </div>
       
-      {/* Daily target */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-ink">Цель на день (₽)</label>
-        <input 
-          type="number" 
-          className="w-full px-4 py-3 rounded-2xl bg-card border-2 border-transparent focus:border-mint outline-none text-ink" 
-          value={dailyTarget} 
-          onChange={(e)=>save({ dailyTarget: parseInt(e.target.value)||0 })} 
-        />
-      </div>
       
       {/* Language */}
       <div className="space-y-2">
@@ -81,6 +80,30 @@ export function Settings() {
         </select>
       </div>
       
+      {/* Notifications */}
+      <label className="flex items-center gap-3 p-4 bg-card rounded-2xl">
+        <input 
+          type="checkbox" 
+          checked={notificationsEnabled} 
+          onChange={(e)=>save({ notificationsEnabled: e.target.checked })}
+          className="w-5 h-5 text-mint rounded focus:ring-mint"
+        />
+        <span className="text-ink font-medium">Напоминания о чаевых 24/7 каждые полчаса</span>
+      </label>
+
+      {/* Reset achievements */}
+      <motion.button
+        onClick={handleResetAchievements}
+        className="w-full bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 text-red-600 hover:text-red-700 py-3 px-4 rounded-2xl text-sm font-semibold transition-all duration-300 border border-red-200 hover:border-red-300 shadow-sm hover:shadow-md"
+        whileHover={{ scale: 1.02, y: -1 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <div className="flex items-center justify-center gap-2">
+          <div className="text-lg">🗑️</div>
+          <div>Сбросить все достижения</div>
+        </div>
+      </motion.button>
+
       {/* Show avatar */}
       <label className="flex items-center gap-3 p-4 bg-card rounded-2xl">
         <input 
