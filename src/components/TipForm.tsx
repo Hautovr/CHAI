@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Numpad } from './Numpad';
 import { QuickAmounts } from './QuickAmounts';
 import { TablesStats } from './TablesStats';
+import { AchievementsCompact } from './AchievementsCompact';
 import { useTips } from '../store/tips.store';
 import { useSettings } from '../store/settings.store';
 import { useAchievements } from '../store/achievements.store';
@@ -71,6 +72,11 @@ export function TipForm() {
       {/* Tables Stats */}
       <div className="px-4 pb-2 flex-shrink-0">
         <TablesStats onAddTable={() => {}} />
+      </div>
+      
+      {/* Achievements */}
+      <div className="px-4 pb-2 flex-shrink-0">
+        <AchievementsCompact />
       </div>
     </div>
   );
