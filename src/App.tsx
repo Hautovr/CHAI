@@ -95,7 +95,7 @@ export function App() {
           <main className="flex-1 overflow-y-auto min-h-0">{Page}</main>
       <nav className="bg-transparent flex justify-center gap-1 py-3 flex-shrink-0">
         <motion.button 
-          className={`px-12 py-6 rounded-2xl text-lg font-bold transition-all duration-500 ${tab==='home'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
+          className={`px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-500 ${tab==='home'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
           initial={{ scale: 0.5, opacity: 0, y: 50, rotateX: -90 }}
           animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
           transition={{ 
@@ -128,7 +128,7 @@ export function App() {
         </motion.button>
         
         <motion.button 
-          className={`px-12 py-6 rounded-2xl text-lg font-bold transition-all duration-500 ${tab==='history'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
+          className={`px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-500 ${tab==='history'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
           initial={{ scale: 0.5, opacity: 0, y: 50, rotateX: -90 }}
           animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
           transition={{ 
@@ -161,7 +161,7 @@ export function App() {
         </motion.button>
         
         <motion.button 
-          className={`px-12 py-6 rounded-2xl text-lg font-bold transition-all duration-500 ${tab==='stats'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
+          className={`px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-500 ${tab==='stats'?'bg-mint text-white shadow-2xl':'bg-mint-soft text-ink hover:bg-mint/40'}`}
           initial={{ scale: 0.5, opacity: 0, y: 50, rotateX: -90 }}
           animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
           transition={{ 
