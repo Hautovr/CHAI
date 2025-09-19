@@ -305,7 +305,7 @@ export function CustomThemes() {
       <ThemeCreator
         isOpen={isCreatorOpen}
         onClose={handleCloseCreator}
-        editingThemeId={editingThemeId}
+        editingThemeId={editingThemeId || undefined}
       />
     </>
   );
