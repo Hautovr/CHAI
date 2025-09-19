@@ -9,16 +9,18 @@ import AppHeader from '../components/AppHeader';
 import { telegram } from '../lib/telegram';
 import { motion } from 'framer-motion';
 import { X, Check } from 'lucide-react';
-import { SubscriptionStatus } from '../components/SubscriptionStatus';
-import { PremiumFeatures } from '../components/PremiumFeatures';
-import { AdvancedAnalytics } from '../components/AdvancedAnalytics';
-import { DataExport } from '../components/DataExport';
-import { SmartNotifications } from '../components/SmartNotifications';
-import { CustomThemes } from '../components/CustomThemes';
-import { CloudSync } from '../components/CloudSync';
-import { PrioritySupport } from '../components/PrioritySupport';
-import { StarsPayment } from '../components/StarsPayment';
-import { AdminPanel } from '../components/AdminPanel';
+// import { SubscriptionStatus } from '../components/SubscriptionStatus';
+// Премиум компоненты временно отключены
+// import { PremiumFeatures } from '../components/PremiumFeatures';
+// import { AdvancedAnalytics } from '../components/AdvancedAnalytics';
+// import { DataExport } from '../components/DataExport';
+// import { SmartNotifications } from '../components/SmartNotifications';
+// import { CustomThemes } from '../components/CustomThemes';
+// import { CloudSync } from '../components/CloudSync';
+// import { PrioritySupport } from '../components/PrioritySupport';
+// Премиум компоненты временно отключены
+// import { StarsPayment } from '../components/StarsPayment';
+// import { AdminPanel } from '../components/AdminPanel';
 
 export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
   const { tips, load } = useTips();
@@ -123,21 +125,7 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
         </div>
       </div>
       <TipForm />
-      <div className="px-4 pb-4">
-        {/* Временно отключено
-        <StarsPayment />
-        <PremiumFeatures />
-        <AdvancedAnalytics />
-        <DataExport />
-        <SmartNotifications />
-        <CustomThemes />
-        <CloudSync />
-        <PrioritySupport />
-        */}
-      </div>
-
-      {/* Admin Panel */}
-      <AdminPanel />
+      {/* Все премиум функции отключены */}
     </div>
   );
 }
