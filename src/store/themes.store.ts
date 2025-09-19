@@ -28,6 +28,7 @@ export interface ThemesState {
   updateCustomTheme: (themeId: string, updates: Partial<Theme>) => void;
   deleteCustomTheme: (themeId: string) => void;
   getCurrentTheme: () => Theme | undefined;
+  resetThemes: () => void;
   getThemeById: (themeId: string) => Theme | undefined;
 }
 
@@ -227,6 +228,13 @@ export const useThemes = create<ThemesState>()(
       getThemeById: (themeId: string) => {
         const { themes } = get();
         return themes.find(theme => theme.id === themeId);
+      },
+
+      resetThemes: () => {
+        set({ 
+          themes: defaultThemes,
+          currentThemeId: 'default'
+        });
       }
     }),
     {

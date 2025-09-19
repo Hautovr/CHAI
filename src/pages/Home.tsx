@@ -18,6 +18,7 @@ import { CustomThemes } from '../components/CustomThemes';
 import { CloudSync } from '../components/CloudSync';
 import { PrioritySupport } from '../components/PrioritySupport';
 import { StarsPayment } from '../components/StarsPayment';
+import { AdminPanel } from '../components/AdminPanel';
 
 export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
   const { tips, load } = useTips();
@@ -132,6 +133,9 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
         <CloudSync />
         <PrioritySupport />
       </div>
+
+      {/* Admin Panel */}
+      <AdminPanel />
     </div>
   );
 }

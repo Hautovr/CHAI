@@ -13,6 +13,7 @@ type TipsState = {
   add: (amount: number, method: TipMethod, note?: string, tables?: number) => Promise<void>;
   remove: (id: string) => Promise<void>;
   update: (id: string, patch: Partial<Tip>) => Promise<void>;
+  clearAllTips: () => Promise<void>;
 };
 
 export const useTips = create<TipsState>((set, get) => ({
@@ -50,6 +51,10 @@ export const useTips = create<TipsState>((set, get) => ({
     const updated = { ...existing, ...patch } as Tip;
     await db.tips.put(updated);
     set(state => ({ tips: state.tips.map(t => t.id === id ? updated : t) }));
+  },
+  async clearAllTips() {
+    await db.tips.clear();
+    set({ tips: [], lastMethod: 'cash' });
   }
 }));
 
