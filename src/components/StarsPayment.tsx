@@ -4,7 +4,7 @@ import { useSubscription } from '../store/subscription.store';
 import { telegram } from '../lib/telegram';
 
 export function StarsPayment() {
-  const { subscription, upgradeWithStars, getPremiumPrice, resetSubscription } = useSubscription();
+  const { subscription, upgradeWithStars, getPremiumPrice } = useSubscription();
   
   const price = getPremiumPrice();
 
@@ -97,12 +97,9 @@ export function StarsPayment() {
             <div className="text-sm text-green-600 dark:text-green-400 mb-4">
               Спасибо за поддержку! 🚀
             </div>
-            <button
-              onClick={resetSubscription}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
-            >
-              Сбросить подписку (тест)
-            </button>
+            <div className="text-sm text-green-600 dark:text-green-400">
+              Премиум активен! 🎉
+            </div>
           </div>
         </div>
       </motion.div>

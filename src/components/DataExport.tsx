@@ -22,7 +22,7 @@ export function DataExport() {
         format(new Date(tip.createdAt), 'dd.MM.yyyy', { locale: ru }),
         format(new Date(tip.createdAt), 'HH:mm', { locale: ru }),
         tip.amount.toString(),
-        tip.paymentMethod || 'Наличные',
+        tip.method || 'Наличные',
         tip.shiftId || 'Не указана',
         tip.note || ''
       ])
@@ -105,7 +105,7 @@ export function DataExport() {
                 <td>${format(new Date(tip.createdAt), 'dd.MM.yyyy', { locale: ru })}</td>
                 <td>${format(new Date(tip.createdAt), 'HH:mm', { locale: ru })}</td>
                 <td>${tip.amount.toLocaleString()} ₽</td>
-                <td>${tip.paymentMethod || 'Наличные'}</td>
+                <td>${tip.method || 'Наличные'}</td>
                 <td>${tip.note || ''}</td>
               </tr>
             `).join('')}
