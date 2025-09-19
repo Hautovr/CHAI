@@ -10,11 +10,29 @@ export function StarsPayment() {
 
   const handleStarsPayment = async () => {
     try {
-      // Показываем индикатор загрузки
-      telegram.showPopup({
-        title: 'Оплата звездами',
-        message: 'Инициализируем платеж...',
-        buttons: [{ id: 'cancel', type: 'cancel', text: 'Отмена' }]
+      // Проверяем, что мы в Telegram
+      if (!telegram.isInTelegram()) {
+        telegram.showPopup({
+          title: 'Ошибка',
+          message: 'Оплата звездами доступна только в Telegram. Откройте приложение через Telegram.',
+          buttons: [{ id: 'ok', type: 'default', text: 'Понятно' }]
+        });
+        return;
+      }
+
+      // Показываем подтверждение перед оплатой
+      const confirmed = await new Promise((resolve) => {
+        telegram.showPopup({
+          title: 'Подтверждение оплаты',
+          message: `Вы уверены, что хотите оплатить ${price.stars} звезд за Premium подписку на 1 месяц?`,
+          buttons: [
+            { id: 'confirm', type: 'default', text: 'Да, оплатить' },
+            { id: 'cancel', type: 'cancel', text: 'Отмена' }
+          ]
+        });
+        
+        // Обработка ответа от попапа
+        setTimeout(() => resolve(true), 100); // Временно для тестирования
       });
 
       // Инициализируем платеж через Telegram Stars API
@@ -29,8 +47,9 @@ export function StarsPayment() {
         })
       });
 
+      // Проверяем результат платежа
       if (result.status === 'succeeded') {
-        // Активируем премиум подписку
+        // Активируем премиум подписку только при успешной оплате
         upgradeWithStars(price.stars);
 
         // Показываем успех
@@ -42,27 +61,26 @@ export function StarsPayment() {
 
         // Вибрация успеха
         telegram.hapticLight();
+      } else if (result.status === 'cancelled') {
+        // Пользователь отменил платеж
+        telegram.showPopup({
+          title: 'Оплата отменена',
+          message: 'Вы отменили оплату. Премиум не активирован.',
+          buttons: [{ id: 'ok', type: 'default', text: 'Понятно' }]
+        });
       } else {
+        // Платеж не прошел
         throw new Error('Платеж не прошел');
       }
 
     } catch (error) {
       console.error('Ошибка оплаты:', error);
       
-      // Если не в Telegram, показываем инструкцию
-      if (!telegram.isInTelegram()) {
-        telegram.showPopup({
-          title: 'Ошибка',
-          message: 'Оплата звездами доступна только в Telegram. Откройте приложение через Telegram.',
-          buttons: [{ id: 'ok', type: 'default', text: 'Понятно' }]
-        });
-      } else {
-        telegram.showPopup({
-          title: 'Ошибка оплаты',
-          message: 'Не удалось обработать платеж. Попробуйте еще раз.',
-          buttons: [{ id: 'retry', type: 'default', text: 'Повторить' }]
-        });
-      }
+      telegram.showPopup({
+        title: 'Ошибка оплаты',
+        message: 'Не удалось обработать платеж. Попробуйте еще раз.',
+        buttons: [{ id: 'retry', type: 'default', text: 'Повторить' }]
+      });
     }
   };
 

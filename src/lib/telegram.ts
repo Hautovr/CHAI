@@ -227,12 +227,22 @@ export const telegram = {
       if (window.Telegram?.WebApp?.requestPayment) {
         return window.Telegram.WebApp.requestPayment(params);
       } else {
-        // Fallback для браузера - симуляция оплаты
+        // Fallback для браузера - симуляция с возможностью отмены
         console.log('Simulating payment:', params);
-        return Promise.resolve({
-          status: 'succeeded' as const,
-          transaction_id: 'sim_' + Date.now()
-        });
+        
+        // Показываем диалог подтверждения в браузере
+        const confirmed = confirm(`Оплатить ${params.amount} ${params.currency}?\n\n${params.description}`);
+        
+        if (confirmed) {
+          return Promise.resolve({
+            status: 'succeeded' as const,
+            transaction_id: 'sim_' + Date.now()
+          });
+        } else {
+          return Promise.resolve({
+            status: 'cancelled' as const
+          });
+        }
       }
     } catch (error) {
       console.error('Error requesting payment:', error);
