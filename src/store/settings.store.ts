@@ -6,7 +6,6 @@ type SettingsState = Settings & {
   loaded: boolean;
   load: () => Promise<Settings>;
   save: (patch: Partial<Settings>) => Promise<void>;
-  resetSettings: () => Promise<void>;
 };
 
 const defaultSettings: Settings = {
@@ -42,10 +41,6 @@ export const useSettings = create<SettingsState>((set, get) => ({
     const merged = SettingsSchema.parse({ ...get(), ...patch });
     await db.settings.put(merged);
     set(merged);
-  },
-  async resetSettings() {
-    await db.settings.put(defaultSettings);
-    set({ ...defaultSettings, loaded: true });
   }
 }));
 

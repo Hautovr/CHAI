@@ -11,7 +11,6 @@ type ShiftsState = {
   startShift: () => Promise<Shift>;
   stopShift: () => Promise<void>;
   ensureTodayShift: () => Promise<void>;
-  clearAllShifts: () => Promise<void>;
 };
 
 export const useShifts = create<ShiftsState>((set, get) => ({
@@ -60,10 +59,6 @@ export const useShifts = create<ShiftsState>((set, get) => ({
     await db.shifts.put(shift);
     const shifts = await db.shifts.orderBy('startedAt').reverse().toArray();
     set({ currentShiftId: shift.id, shifts });
-  },
-  async clearAllShifts() {
-    await db.shifts.clear();
-    set({ currentShiftId: null, shifts: [] });
   }
 }));
 

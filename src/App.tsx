@@ -67,20 +67,87 @@ export function App() {
   }, [theme]);
 
   const Page = useMemo(() => {
+    const pageVariants = {
+      initial: { opacity: 0, x: 20, scale: 0.95 },
+      in: { opacity: 1, x: 0, scale: 1 },
+      out: { opacity: 0, x: -20, scale: 0.95 }
+    };
+
+    const pageTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 0.3
+    };
+
     switch (tab) {
       case 'home':
-        return <Home onOpenShifts={() => {
-          console.log('Home component trying to open settings');
-          // Не используем эту функцию, так как настройки теперь открываются через Header
-        }} />;
+        return (
+          <motion.div
+            key="home"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Home onOpenShifts={() => {
+              console.log('Home component trying to open settings');
+              // Не используем эту функцию, так как настройки теперь открываются через Header
+            }} />
+          </motion.div>
+        );
       case 'history':
-        return <History />;
+        return (
+          <motion.div
+            key="history"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <History />
+          </motion.div>
+        );
       case 'stats':
-        return <Stats />;
+        return (
+          <motion.div
+            key="stats"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Stats />
+          </motion.div>
+        );
       case 'achievements':
-        return <AchievementsPage />;
+        return (
+          <motion.div
+            key="achievements"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <AchievementsPage />
+          </motion.div>
+        );
       case 'settings':
-        return <Settings />;
+        return (
+          <motion.div
+            key="settings"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Settings />
+          </motion.div>
+        );
     }
   }, [tab]);
 

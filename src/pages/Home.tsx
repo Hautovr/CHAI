@@ -9,18 +9,6 @@ import AppHeader from '../components/AppHeader';
 import { telegram } from '../lib/telegram';
 import { motion } from 'framer-motion';
 import { X, Check } from 'lucide-react';
-// import { SubscriptionStatus } from '../components/SubscriptionStatus';
-// Премиум компоненты временно отключены
-// import { PremiumFeatures } from '../components/PremiumFeatures';
-// import { AdvancedAnalytics } from '../components/AdvancedAnalytics';
-// import { DataExport } from '../components/DataExport';
-// import { SmartNotifications } from '../components/SmartNotifications';
-// import { CustomThemes } from '../components/CustomThemes';
-// import { CloudSync } from '../components/CloudSync';
-// import { PrioritySupport } from '../components/PrioritySupport';
-// Премиум компоненты временно отключены
-// import { StarsPayment } from '../components/StarsPayment';
-// import { AdminPanel } from '../components/AdminPanel';
 
 export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
   const { tips, load } = useTips();
@@ -75,7 +63,6 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
     <div>
       <div className="px-4 pt-4">
         <AppHeader name={user?.first_name} />
-        <SubscriptionStatus />
         <div className="rounded-3xl bg-card shadow-soft p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
             <div className="text-xl font-semibold text-ink">Сегодня: {today.toLocaleString()} ₽</div>
@@ -117,6 +104,7 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
           <div className="h-3 rounded-full bg-mint-soft overflow-hidden">
             <div 
               className="h-full bg-gradient-to-r from-mint to-emerald-400 transition-all duration-500 ease-out" 
+              style={{ width: `${progress}%` }} 
             />
           </div>
           <div className="text-xs text-muted mt-1 text-center">
@@ -125,7 +113,6 @@ export function Home({ onOpenShifts }: { onOpenShifts: () => void }) {
         </div>
       </div>
       <TipForm />
-      {/* Все премиум функции отключены */}
     </div>
   );
 }

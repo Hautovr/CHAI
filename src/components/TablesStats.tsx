@@ -5,7 +5,6 @@ import { telegram } from '../lib/telegram';
 import { format, startOfDay, addDays, subDays, getDay, getHours } from 'date-fns';
 import { useTips } from '../store/tips.store';
 import { useSettings } from '../store/settings.store';
-import { useSubscription } from '../store/subscription.store';
 
 interface TablesStatsProps {
   onAddTable: () => void;
@@ -14,7 +13,6 @@ interface TablesStatsProps {
 export function TablesStats({ onAddTable }: TablesStatsProps) {
   const { tips } = useTips();
   const { notificationsEnabled } = useSettings();
-  const { hasFeature } = useSubscription();
   const [todayTables, setTodayTables] = useState(0);
   const [yesterdayTables, setYesterdayTables] = useState(0);
   const [pendingTables, setPendingTables] = useState(0);
@@ -523,25 +521,6 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9, duration: 0.4 }}
       >
-        {/* Премиум аналитика */}
-        {hasFeature('advanced_analytics') && (
-          <motion.div
-            className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-3 border border-purple-200 dark:border-purple-700/50 shadow-sm"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.0, duration: 0.4 }}
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <div className="text-xl">🚀</div>
-              <div className="text-xs font-semibold text-purple-800 dark:text-purple-300">
-                Premium аналитика
-              </div>
-            </div>
-            <div className="text-xs text-purple-700 dark:text-purple-400">
-              Расширенные инсайты и прогнозы доступны
-            </div>
-          </motion.div>
-        )}
         {/* Среднее за неделю */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg p-3 border border-blue-200 dark:border-blue-700/50 shadow-sm">
           <div className="flex items-center justify-between">
