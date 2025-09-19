@@ -179,6 +179,70 @@ export const telegram = {
     hide() {
       try { WebApp.BackButton.hide(); } catch {}
     }
+  },
+  
+  // Функции для работы с реальным Telegram API
+  showPopup(params: {
+    title?: string;
+    message: string;
+    buttons?: Array<{
+      id?: string;
+      type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive';
+      text?: string;
+    }>;
+  }) {
+    try {
+      if (window.Telegram?.WebApp?.showPopup) {
+        return window.Telegram.WebApp.showPopup(params);
+      } else {
+        // Fallback для браузера
+        alert(`${params.title || 'Уведомление'}\n\n${params.message}`);
+      }
+    } catch (error) {
+      console.error('Error showing popup:', error);
+      alert(params.message);
+    }
+  },
+  
+  showAlert(message: string) {
+    try {
+      if (window.Telegram?.WebApp?.showAlert) {
+        return window.Telegram.WebApp.showAlert(message);
+      } else {
+        alert(message);
+      }
+    } catch (error) {
+      console.error('Error showing alert:', error);
+      alert(message);
+    }
+  },
+  
+  requestPayment(params: {
+    currency: string;
+    amount: number;
+    description: string;
+    payload: string;
+  }) {
+    try {
+      if (window.Telegram?.WebApp?.requestPayment) {
+        return window.Telegram.WebApp.requestPayment(params);
+      } else {
+        // Fallback для браузера - симуляция оплаты
+        console.log('Simulating payment:', params);
+        return Promise.resolve({
+          status: 'succeeded' as const,
+          transaction_id: 'sim_' + Date.now()
+        });
+      }
+    } catch (error) {
+      console.error('Error requesting payment:', error);
+      return Promise.reject(error);
+    }
+  },
+  
+  // Проверка, запущено ли в Telegram
+  isInTelegram() {
+    return !!(window.Telegram?.WebApp);
   }
 };
 

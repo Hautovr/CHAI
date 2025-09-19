@@ -5,6 +5,7 @@ import { telegram } from '../lib/telegram';
 import { format, startOfDay, addDays, subDays, getDay, getHours } from 'date-fns';
 import { useTips } from '../store/tips.store';
 import { useSettings } from '../store/settings.store';
+import { useSubscription } from '../store/subscription.store';
 
 interface TablesStatsProps {
   onAddTable: () => void;
@@ -13,6 +14,7 @@ interface TablesStatsProps {
 export function TablesStats({ onAddTable }: TablesStatsProps) {
   const { tips } = useTips();
   const { notificationsEnabled } = useSettings();
+  const { hasFeature } = useSubscription();
   const [todayTables, setTodayTables] = useState(0);
   const [yesterdayTables, setYesterdayTables] = useState(0);
   const [pendingTables, setPendingTables] = useState(0);
@@ -360,16 +362,32 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-card to-mint/5 rounded-2xl p-5 shadow-lg border border-mint/30 mb-4">
+    <motion.div 
+      className="bg-gradient-to-br from-card to-mint/5 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-5 shadow-lg border border-mint/30 dark:border-gray-700 mb-4"
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ 
+        duration: 0.5, 
+        delay: 0.2,
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }}
+    >
       {/* Заголовок */}
-      <div className="flex items-center justify-between mb-6">
+      <motion.div 
+        className="flex items-center justify-between mb-6"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
+      >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-mint to-mint-soft flex items-center justify-center shadow-md">
             <BarChart3 className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-ink">Управление столами</h3>
-            <p className="text-xs text-muted">Добавляйте столы и отслеживайте статистику</p>
+            <h3 className="text-lg font-bold text-ink dark:text-gray-100">Управление столами</h3>
+            <p className="text-xs text-muted dark:text-gray-400">Добавляйте столы и отслеживайте статистику</p>
           </div>
         </div>
         
@@ -388,19 +406,19 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             </motion.button>
           )}
           <div className="text-center">
-            <div className="text-2xl font-black text-mint">{pendingTables}</div>
-            <div className="text-xs text-muted">ожидает</div>
+            <div className="text-2xl font-black text-mint dark:text-mint-soft">{pendingTables}</div>
+            <div className="text-xs text-muted dark:text-gray-400">ожидает</div>
           </div>
         </div>
-      </div>
+      </motion.div>
       
       {/* Описание работы статистики */}
-      <div className="bg-blue-50/50 rounded-xl p-4 mb-4 border border-blue-200">
+      <div className="bg-green-50/50 dark:bg-green-900/20 rounded-xl p-4 mb-4 border border-green-200 dark:border-green-700/50">
         <div className="flex items-start gap-3">
           <div className="text-2xl">📊</div>
           <div>
-            <div className="text-sm font-semibold text-blue-800 mb-2">Как работает статистика?</div>
-            <div className="text-xs text-blue-700 space-y-1">
+            <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Как работает статистика?</div>
+            <div className="text-xs text-gray-800 dark:text-gray-200 space-y-1">
               <div>• <strong>Среднее за неделю</strong> - автоматический расчет по 7 дням</div>
               <div>• <strong>Анализ эффективности</strong> - сравнение ₽/стол с предыдущими днями</div>
               <div>• <strong>Временной анализ</strong> - учет времени дня и дня недели</div>
@@ -412,8 +430,13 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
       </div>
 
       {/* Быстрые действия */}
-      <div className="bg-gradient-to-r from-mint/10 to-mint/5 rounded-xl p-3 mb-4 border border-mint/20 shadow-sm">
-        <div className="text-xs font-semibold text-mint mb-2 flex items-center gap-2">
+      <motion.div 
+        className="bg-gradient-to-r from-mint/20 to-mint/15 dark:from-mint/30 dark:to-mint/20 rounded-xl p-3 mb-4 border border-mint/30 dark:border-mint/40 shadow-sm backdrop-blur-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+      >
+        <div className="text-sm font-bold text-black dark:text-white mb-2 flex items-center gap-2 drop-shadow-lg bg-white/80 dark:bg-black/80 px-2 py-1 rounded-lg">
           <div className="w-2 h-2 rounded-full bg-gradient-to-br from-mint to-mint-soft shadow-sm"></div>
           Быстрые действия
         </div>
@@ -423,20 +446,26 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             disabled={pendingTables === 0}
             className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-300 ${
               pendingTables === 0 
-                ? 'bg-gray-50 text-gray-400 cursor-not-allowed border border-gray-200' 
-                : 'bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 text-green-700 hover:text-green-800 border border-green-300 hover:border-green-400 shadow-sm hover:shadow-md'
+                ? 'bg-gray-100/80 dark:bg-gray-700/80 text-gray-500 dark:text-gray-400 cursor-not-allowed border border-gray-300/70 dark:border-gray-600/70 backdrop-blur-sm' 
+                : 'bg-gradient-to-br from-green-100/80 to-green-200/60 dark:from-green-800/40 dark:to-green-700/30 hover:from-green-200/90 hover:to-green-300/70 dark:hover:from-green-700/50 dark:hover:to-green-600/40 text-green-800 dark:text-gray-900 hover:text-green-900 dark:hover:text-gray-800 border border-green-400/60 dark:border-green-500/50 hover:border-green-500/80 dark:hover:border-green-400/60 shadow-sm hover:shadow-md backdrop-blur-sm'
             }`}
             whileHover={{ scale: pendingTables > 0 ? 1.03 : 1, y: pendingTables > 0 ? -1 : 0 }}
             whileTap={{ scale: pendingTables > 0 ? 0.97 : 1 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.3, type: "spring", stiffness: 200 }}
           >
             <div className="text-sm mb-1">➖</div>
             <div className="text-xs">-1</div>
           </motion.button>
           <motion.button
             onClick={() => addQuickTables(1)}
-            className="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 text-green-700 hover:text-green-800 py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-300 border border-green-300 hover:border-green-400 shadow-sm hover:shadow-md"
+            className="bg-gradient-to-br from-green-100/80 to-green-200/60 dark:from-green-800/40 dark:to-green-700/30 hover:from-green-200/90 hover:to-green-300/70 dark:hover:from-green-700/50 dark:hover:to-green-600/40 text-green-800 dark:text-gray-900 hover:text-green-900 dark:hover:text-gray-800 py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-300 border border-green-400/60 dark:border-green-500/50 hover:border-green-500/80 dark:hover:border-green-400/60 shadow-sm hover:shadow-md backdrop-blur-sm"
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.3, type: "spring", stiffness: 200 }}
           >
             <div className="text-sm mb-1">➕</div>
             <div className="text-xs">+1</div>
@@ -446,48 +475,80 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             disabled={pendingTables === 0}
             className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-300 ${
               pendingTables === 0 
-                ? 'bg-gray-50 text-gray-400 cursor-not-allowed border border-gray-200' 
-                : 'bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 text-green-700 hover:text-green-800 border border-green-300 hover:border-green-400 shadow-sm hover:shadow-md'
+                ? 'bg-gray-100/80 dark:bg-gray-700/80 text-gray-500 dark:text-gray-400 cursor-not-allowed border border-gray-300/70 dark:border-gray-600/70 backdrop-blur-sm' 
+                : 'bg-gradient-to-br from-green-100/80 to-green-200/60 dark:from-green-800/40 dark:to-green-700/30 hover:from-green-200/90 hover:to-green-300/70 dark:hover:from-green-700/50 dark:hover:to-green-600/40 text-green-800 dark:text-gray-900 hover:text-green-900 dark:hover:text-gray-800 border border-green-400/60 dark:border-green-500/50 hover:border-green-500/80 dark:hover:border-green-400/60 shadow-sm hover:shadow-md backdrop-blur-sm'
             }`}
             whileHover={{ scale: pendingTables > 0 ? 1.03 : 1, y: pendingTables > 0 ? -1 : 0 }}
             whileTap={{ scale: pendingTables > 0 ? 0.97 : 1 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.3, type: "spring", stiffness: 200 }}
           >
             <div className="text-sm mb-1">🔄</div>
             <div className="text-xs">Сброс</div>
           </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       
       {/* Статистика столов */}
-      <div className="bg-gradient-to-br from-white/80 to-mint/5 rounded-xl p-4 mb-6 border border-mint/20 shadow-sm">
-        <div className="text-sm font-semibold text-mint mb-3 flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-gradient-to-br from-mint to-mint-soft shadow-sm"></div>
+      <motion.div 
+        className="bg-gradient-to-br from-green-50/40 to-green-100/30 dark:from-green-900/20 dark:to-green-800/15 rounded-xl p-4 mb-6 border border-green-200/30 dark:border-green-700/30 shadow-sm backdrop-blur-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.4 }}
+      >
+        <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-gradient-to-br from-green-500 to-green-600 shadow-sm"></div>
           Статистика за день
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3 text-center border border-gray-200 shadow-sm">
-            <div className="text-xs text-gray-600 mb-1.5 font-medium">Вчера</div>
-            <div className="text-xl font-black text-gray-700">{yesterdayTables}</div>
-            <div className="text-xs text-gray-500 mt-1">столов</div>
+          <div className="bg-gradient-to-br from-white/40 to-gray-50/50 dark:from-gray-800/40 dark:to-gray-700/50 rounded-lg p-3 text-center border border-green-300/20 dark:border-green-600/20 shadow-sm backdrop-blur-sm">
+            <div className="text-xs text-gray-600 dark:text-gray-400 mb-1.5 font-medium">Вчера</div>
+            <div className="text-xl font-black text-gray-700 dark:text-gray-200">{yesterdayTables}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">столов</div>
           </div>
-          <div className="bg-gradient-to-br from-mint/20 to-mint/30 rounded-lg p-3 text-center border-2 border-mint/40 shadow-md">
-            <div className="text-xs text-mint-soft mb-1.5 font-medium">Сегодня</div>
-            <div className="text-xl font-black text-mint">{todayTables}</div>
-            <div className="text-xs text-mint-soft mt-1">столов</div>
+          <div className="bg-gradient-to-br from-green-200/25 to-green-300/20 dark:from-green-700/25 dark:to-green-600/20 rounded-lg p-3 text-center border-2 border-green-400/30 dark:border-green-500/30 shadow-md backdrop-blur-sm">
+            <div className="text-xs text-green-700 dark:text-green-300 mb-1.5 font-medium">Сегодня</div>
+            <div className="text-xl font-black text-green-800 dark:text-green-200">{todayTables}</div>
+            <div className="text-xs text-green-600 dark:text-green-400 mt-1">столов</div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Аналитика */}
-      <div className="space-y-3">
+      <motion.div 
+        className="space-y-3"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9, duration: 0.4 }}
+      >
+        {/* Премиум аналитика */}
+        {hasFeature('advanced_analytics') && (
+          <motion.div
+            className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-3 border border-purple-200 dark:border-purple-700/50 shadow-sm"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.0, duration: 0.4 }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <div className="text-xl">🚀</div>
+              <div className="text-xs font-semibold text-purple-800 dark:text-purple-300">
+                Premium аналитика
+              </div>
+            </div>
+            <div className="text-xs text-purple-700 dark:text-purple-400">
+              Расширенные инсайты и прогнозы доступны
+            </div>
+          </motion.div>
+        )}
         {/* Среднее за неделю */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 border border-blue-200 shadow-sm">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg p-3 border border-blue-200 dark:border-blue-700/50 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-xs font-semibold text-blue-800 mb-1">Среднее за неделю</div>
-              <div className="text-lg font-black text-blue-600">{weeklyAverage}</div>
-              <div className="text-xs text-blue-600">столов в день</div>
+              <div className="text-xs font-semibold text-blue-800 dark:text-blue-300 mb-1">Среднее за неделю</div>
+              <div className="text-lg font-black text-blue-600 dark:text-blue-400">{weeklyAverage}</div>
+              <div className="text-xs text-blue-600 dark:text-blue-400">столов в день</div>
             </div>
             <div className="text-2xl">📊</div>
           </div>
@@ -495,12 +556,12 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
 
         {/* Анализ эффективности */}
         {correlation && (
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200 shadow-sm">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg p-3 border border-green-200 dark:border-green-700/50 shadow-sm">
             <div className="flex items-center gap-2">
               <div className="text-xl">💰</div>
               <div>
-                <div className="text-xs font-semibold text-green-800 mb-1">Анализ эффективности</div>
-                <div className="text-xs font-medium text-green-700">{correlation}</div>
+                <div className="text-xs font-semibold text-green-800 dark:text-green-300 mb-1">Анализ эффективности</div>
+                <div className="text-xs font-medium text-green-700 dark:text-green-400">{correlation}</div>
               </div>
             </div>
           </div>
@@ -508,12 +569,12 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
 
         {/* Временной анализ */}
         {timeAnalysis && (
-          <div className="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-lg p-3 border border-cyan-200 shadow-sm">
+          <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/30 dark:to-blue-900/30 rounded-lg p-3 border border-cyan-200 dark:border-cyan-700/50 shadow-sm">
             <div className="flex items-center gap-2">
               <div className="text-xl">⏰</div>
               <div>
-                <div className="text-xs font-semibold text-cyan-800 mb-1">Временной анализ</div>
-                <div className="text-xs font-medium text-cyan-700">{timeAnalysis}</div>
+                <div className="text-xs font-semibold text-cyan-800 dark:text-cyan-300 mb-1">Временной анализ</div>
+                <div className="text-xs font-medium text-cyan-700 dark:text-cyan-400">{timeAnalysis}</div>
               </div>
             </div>
           </div>
@@ -521,12 +582,12 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
 
         {/* Прогноз */}
         {prediction && (
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-3 border border-purple-200 shadow-sm">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-3 border border-purple-200 dark:border-purple-700/50 shadow-sm">
             <div className="flex items-center gap-2">
               <div className="text-xl">🔮</div>
               <div>
-                <div className="text-xs font-semibold text-purple-800 mb-1">Прогноз на смену</div>
-                <div className="text-xs font-medium text-purple-700">{prediction}</div>
+                <div className="text-xs font-semibold text-purple-800 dark:text-purple-300 mb-1">Прогноз на смену</div>
+                <div className="text-xs font-medium text-purple-700 dark:text-purple-400">{prediction}</div>
               </div>
             </div>
           </div>
@@ -535,7 +596,7 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
         {/* Напоминание */}
         {todayTables === 0 && (
           <motion.div
-            className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-3 border border-yellow-200 shadow-sm"
+            className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg p-3 border border-yellow-200 dark:border-yellow-700/50 shadow-sm"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 2 }}
@@ -543,8 +604,8 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             <div className="flex items-center gap-2">
               <div className="text-xl">⏰</div>
               <div>
-                <div className="text-xs font-semibold text-yellow-800 mb-1">Напоминание</div>
-                <div className="text-xs font-medium text-yellow-700">Не забыли добавить столы?</div>
+                <div className="text-xs font-semibold text-yellow-800 dark:text-yellow-300 mb-1">Напоминание</div>
+                <div className="text-xs font-medium text-yellow-700 dark:text-yellow-400">Не забыли добавить столы?</div>
               </div>
             </div>
           </motion.div>
@@ -556,7 +617,7 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             console.log('🖱️ Клик по кнопке сброса статистики');
             resetTodayTables();
           }}
-          className="w-full bg-gradient-to-r from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 text-red-600 hover:text-red-700 py-2.5 px-4 rounded-lg text-xs font-semibold transition-all duration-300 border border-red-200 hover:border-red-300 shadow-sm hover:shadow-md"
+          className="w-full bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 hover:from-red-100 hover:to-red-200 dark:hover:from-red-800/40 dark:hover:to-red-700/40 text-red-600 dark:text-red-300 hover:text-red-700 dark:hover:text-red-200 py-2.5 px-4 rounded-lg text-xs font-semibold transition-all duration-300 border border-red-200 dark:border-red-700/50 hover:border-red-300 dark:hover:border-red-600/50 shadow-sm hover:shadow-md"
           whileHover={{ scale: 1.02, y: -1 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -565,7 +626,7 @@ export function TablesStats({ onAddTable }: TablesStatsProps) {
             <div>Сбросить статистику за сегодня</div>
           </div>
         </motion.button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

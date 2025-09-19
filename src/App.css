@@ -40,3 +40,281 @@
 .read-the-docs {
   color: #888;
 }
+
+/* CSS переменные для тем */
+:root {
+  --theme-primary: #3B82F6;
+  --theme-secondary: #10B981;
+  --theme-accent: #8B5CF6;
+  --theme-background: #F8FAFC;
+  --theme-text: #1F2937;
+  --theme-card: #FFFFFF;
+  --theme-border: #E5E7EB;
+}
+
+/* Применение переменных к основным элементам */
+body {
+  background-color: var(--theme-background) !important;
+  color: var(--theme-text) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Применение к root элементу */
+#root {
+  background-color: var(--theme-background) !important;
+  color: var(--theme-text) !important;
+}
+
+/* Применение ко всем текстовым элементам */
+h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, label {
+  color: var(--theme-text) !important;
+  transition: color 0.3s ease;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--theme-text) !important;
+}
+
+/* Ссылки */
+a {
+  color: var(--theme-primary) !important;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--theme-secondary) !important;
+}
+
+/* Карточки */
+.bg-card {
+  background-color: var(--theme-card) !important;
+}
+
+/* Текст */
+.text-ink {
+  color: var(--theme-text) !important;
+}
+
+/* Основные цвета */
+.bg-mint {
+  background-color: var(--theme-primary) !important;
+}
+
+.text-mint {
+  color: var(--theme-primary) !important;
+}
+
+.border-mint {
+  border-color: var(--theme-primary) !important;
+}
+
+/* Вторичные цвета */
+.bg-green-500 {
+  background-color: var(--theme-secondary) !important;
+}
+
+.text-green-500 {
+  color: var(--theme-secondary) !important;
+}
+
+/* Акцентные цвета */
+.bg-purple-500 {
+  background-color: var(--theme-accent) !important;
+}
+
+.text-purple-500 {
+  color: var(--theme-accent) !important;
+}
+
+/* Дополнительные классы для применения тем */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--theme-primary), var(--theme-secondary)) !important;
+}
+
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--theme-primary), var(--theme-secondary)) !important;
+}
+
+.border {
+  border-color: var(--theme-border) !important;
+}
+
+/* Кнопки */
+button {
+  transition: all 0.3s ease !important;
+}
+
+/* Карточки с градиентами */
+.bg-gradient-to-r.from-blue-50.to-indigo-50 {
+  background: linear-gradient(to right, var(--theme-background), var(--theme-card)) !important;
+}
+
+.bg-gradient-to-br.from-card.to-mint\/5 {
+  background: linear-gradient(to bottom right, var(--theme-card), var(--theme-primary)) !important;
+  opacity: 0.05;
+}
+
+/* Применение тем ко всем Tailwind классам */
+.text-ink {
+  color: var(--theme-text) !important;
+}
+
+.text-muted {
+  color: var(--theme-text) !important;
+  opacity: 0.7;
+}
+
+.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
+  color: var(--theme-text) !important;
+}
+
+.text-gray-400, .text-gray-500 {
+  color: var(--theme-text) !important;
+  opacity: 0.6;
+}
+
+/* Кнопки */
+button {
+  transition: all 0.3s ease !important;
+}
+
+.bg-mint {
+  background-color: var(--theme-primary) !important;
+}
+
+.text-mint {
+  color: var(--theme-primary) !important;
+}
+
+.border-mint {
+  border-color: var(--theme-primary) !important;
+}
+
+/* Границы */
+.border {
+  border-color: var(--theme-border) !important;
+}
+
+.border-gray-200, .border-gray-300, .border-gray-400 {
+  border-color: var(--theme-border) !important;
+}
+
+/* Фоны */
+.bg-white {
+  background-color: var(--theme-card) !important;
+}
+
+.bg-gray-50, .bg-gray-100 {
+  background-color: var(--theme-background) !important;
+}
+
+.bg-gray-200, .bg-gray-300 {
+  background-color: var(--theme-border) !important;
+}
+
+/* Тени */
+.shadow-sm, .shadow-md, .shadow-lg {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Hover эффекты */
+.hover\:bg-gray-100:hover {
+  background-color: var(--theme-border) !important;
+}
+
+.hover\:text-gray-900:hover {
+  color: var(--theme-text) !important;
+}
+
+/* Применение темных переменных для темной темы */
+.dark {
+  --theme-primary: #2563EB;
+  --theme-secondary: #059669;
+  --theme-accent: #7C3AED;
+  --theme-background: #111827;
+  --theme-text: #F9FAFB;
+  --theme-card: #1F2937;
+  --theme-border: #374151;
+}
+
+/* Классы для применения тем */
+.theme-default {
+  --theme-primary: #3B82F6;
+  --theme-secondary: #10B981;
+  --theme-accent: #8B5CF6;
+  --theme-background: #F8FAFC;
+  --theme-text: #1F2937;
+  --theme-card: #FFFFFF;
+  --theme-border: #E5E7EB;
+}
+
+.theme-dark {
+  --theme-primary: #3B82F6;
+  --theme-secondary: #10B981;
+  --theme-accent: #8B5CF6;
+  --theme-background: #F8FAFC;
+  --theme-text: #1F2937;
+  --theme-card: #FFFFFF;
+  --theme-border: #E5E7EB;
+}
+
+.theme-sunset {
+  --theme-primary: #F97316;
+  --theme-secondary: #EC4899;
+  --theme-accent: #F59E0B;
+  --theme-background: #FEF3F2;
+  --theme-text: #7C2D12;
+  --theme-card: #FFFFFF;
+  --theme-border: #FED7AA;
+}
+
+.theme-ocean {
+  --theme-primary: #06B6D4;
+  --theme-secondary: #14B8A6;
+  --theme-accent: #3B82F6;
+  --theme-background: #F0FDFF;
+  --theme-text: #0C4A6E;
+  --theme-card: #FFFFFF;
+  --theme-border: #A5F3FC;
+}
+
+.theme-forest {
+  --theme-primary: #059669;
+  --theme-secondary: #84CC16;
+  --theme-accent: #10B981;
+  --theme-background: #F0FDF4;
+  --theme-text: #14532D;
+  --theme-card: #FFFFFF;
+  --theme-border: #BBF7D0;
+}
+
+.theme-royal {
+  --theme-primary: #7C3AED;
+  --theme-secondary: #EC4899;
+  --theme-accent: #8B5CF6;
+  --theme-background: #FAF5FF;
+  --theme-text: #581C87;
+  --theme-card: #FFFFFF;
+  --theme-border: #DDD6FE;
+}
+
+.theme-neon {
+  --theme-primary: #EC4899;
+  --theme-secondary: #F59E0B;
+  --theme-accent: #10B981;
+  --theme-background: #F8FAFC;
+  --theme-text: #1F2937;
+  --theme-card: #FFFFFF;
+  --theme-border: #E5E7EB;
+}
+
+.theme-golden {
+  --theme-primary: #F59E0B;
+  --theme-secondary: #F97316;
+  --theme-accent: #EAB308;
+  --theme-background: #FFFBEB;
+  --theme-text: #92400E;
+  --theme-card: #FFFFFF;
+  --theme-border: #FDE68A;
+}

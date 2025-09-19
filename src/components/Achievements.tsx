@@ -47,7 +47,12 @@ export function Achievements() {
   });
 
   return (
-    <div className="p-4">
+    <motion.div 
+      className="p-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-ink mb-2">🏆 Достижения</h2>
         <p className="text-muted">
@@ -69,12 +74,42 @@ export function Achievements() {
                 <motion.div
                   key={achievement.id}
                   className={`rounded-2xl p-4 border-2 ${rarityColors[achievement.rarity]} shadow-lg`}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ scale: 0.8, opacity: 0, y: 20, rotateX: -15 }}
+                  animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.1,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15
+                  }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -5,
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="text-3xl">{achievement.icon}</div>
+                    <motion.div 
+                      className="text-3xl"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ 
+                        duration: 0.8, 
+                        delay: 0.3,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 10
+                      }}
+                      whileHover={{ 
+                        scale: 1.2, 
+                        rotate: 10,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      {achievement.icon}
+                    </motion.div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <h4 className="font-bold text-lg">{achievement.title}</h4>
@@ -109,9 +144,20 @@ export function Achievements() {
                 <motion.div
                   key={achievement.id}
                   className="rounded-2xl p-4 bg-card border border-mint/20 shadow-sm opacity-75"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 0.75 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 0.75, y: 0 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: 0.2,
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 20
+                  }}
+                  whileHover={{ 
+                    scale: 1.02, 
+                    opacity: 0.9,
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <div className="text-3xl grayscale">{achievement.icon}</div>
@@ -163,6 +209,6 @@ export function Achievements() {
           </motion.button>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
